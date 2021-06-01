@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bash
+
+# Check for custom user group id
+PUID=${PUID:-911}
+PGID=${PGID:-911}
+
+# Update user and group id of mariabackup user
+groupmod -o -g "$PGID" mariabackup >/dev/null
+usermod -o -u "$PUID" mariabackup >/dev/null
+
+echo "
+User uid:    $(id -u mariabackup)
+User gid:    $(id -g mariabackup)
+-------------------------------------
+"
+
+# Set permission for mariabackup user
+chown mariabackup:mariabackup /backup
+
+chmod +x /etc/scripts.d/*
