@@ -15,11 +15,12 @@ fi;
 MYSQL_PWD="$MYSQL_PASSWORD" 
 
 # Create a full backup with all db's
-mysqldump -h $MYSQL_HOST --port=$MYSQL_PORT --all-databases -f -u $MYSQL_USER -p"${MYSQL_PASSWORD}" | gzip -9 > /backup/${NOW}_complete.sql.gz
+if [ "$BACKUP_FULL" != "0" ]; then
+  mysqldump -h $MYSQL_HOST --port=$MYSQL_PORT --all-databases -f -u $MYSQL_USER -p"${MYSQL_PASSWORD}" | gzip -9 > /backup/${NOW}_complete.sql.gz
+fi
 
 # Create individual backups
-if [ "$BACKUP_PER_DB" = "1" ]
-then
+if [ "$BACKUP_PER_DB" = "1" ]; then
   DBs=$(mysql -h $MYSQL_HOST --port=$MYSQL_PORT -u $MYSQL_USER -p"${MYSQL_PASSWORD}" -Bse "show databases")
   for db in $DBs
   do
