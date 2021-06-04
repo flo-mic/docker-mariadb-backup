@@ -42,7 +42,7 @@ services:
       - data:/var/lib/mysql
 
   mariadb-backup:
-    image: ghcr.io/flo-mic/mariadb:latest
+    image: ghcr.io/flo-mic/docker-mariadb-backup:latest
     container_name: mariadb-backup
     hostname: mariadb-backup
     networks:
