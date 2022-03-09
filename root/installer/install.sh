@@ -19,18 +19,18 @@ apk add --no-cache --upgrade \
 
 
 # Download S6 Overlay files
+wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-noarch.tar.xz -O /tmp/s6-overlay-noarch.tar.xz
+tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
 if [[ ${ARCH} = "x86_64" ]]; then
-    wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-amd64-installer -O /tmp/s6-overlay-installer
+    wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-x86_64.tar.xz -O /tmp/s6-overlay-x86_64.tar.xz
+    tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 else
-    wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-arm-installer -O /tmp/s6-overlay-installer
+    wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-arm.tar.xz -O /tmp/s6-overlay-arm.tar.xz
+    tar -C / -Jxpf /tmp/s6-overlay-arm.tar.xz
 fi
-
-
-# Install S6 overlay
-echo "**** Install S6 overlay ****"
-chmod +x /tmp/s6-overlay-installer
-/tmp/s6-overlay-installer /
-rm /tmp/s6-overlay-installer
+wget --quiet https://github.com/just-containers/s6-overlay/releases/latest/download/s6-overlay-symlinks-noarch.tar.xz -O /tmp/s6-overlay-symlinks-noarch.tar.xz
+tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz
+rm /tmp/s6-*
 
 
 # Create user
